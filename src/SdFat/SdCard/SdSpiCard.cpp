@@ -137,12 +137,15 @@ bool SdSpiCard::begin(SdSpiConfig spiConfig) {
     goto fail;
   }
 #endif  // SPI_DRIVER_SELECT
+Serial.print("Before series of func...0 == ");
+Serial.println(m_errorCode);
   sdCsInit(m_csPin);
   spiUnselect();
   spiSetSckSpeed(1000UL * SD_MAX_INIT_RATE_KHZ);
   spiBegin(spiConfig);
   m_beginCalled = true;
-
+  Serial.print("Before series of func...1 == ");
+  Serial.println(m_errorCode);
   spiStart();
 
   // must supply min of 74 clock cycles with CS high.
@@ -162,6 +165,8 @@ bool SdSpiCard::begin(SdSpiConfig spiConfig) {
       goto fail;
     }
   }
+  Serial.print("Before series of func...2 == ");
+  Serial.println(m_errorCode);
 #if USE_SD_CRC
   if (cardCommand(CMD59, 1) != R1_IDLE_STATE) {
     error(SD_CARD_ERROR_CMD59);
@@ -187,6 +192,8 @@ bool SdSpiCard::begin(SdSpiConfig spiConfig) {
       goto fail;
     }
   }
+  Serial.print("Before series of func...3 == ");
+  Serial.println(m_errorCode);
   // initialize card and send host supports SDHC if SD2
   arg = cardType == SD_CARD_TYPE_SD2 ? 0X40000000 : 0;
   while (cardAcmd(ACMD41, arg) != R1_READY_STATE) {
@@ -213,10 +220,14 @@ bool SdSpiCard::begin(SdSpiConfig spiConfig) {
   spiStop();
   spiSetSckSpeed(spiConfig.maxSck);
   m_type = cardType;
+  
 #if ENABLE_DEDICATED_SPI
   m_dedicatedSpi = spiOptionDedicated(spiConfig.options);
 #endif
+Serial.print("Before series of func...4 == ");
+Serial.println(m_errorCode);
   return true;
+
 
 fail:
   spiStop();

@@ -27,8 +27,8 @@
  * \file
  * \brief FsBaseFile include file.
  */
-#include "ExFatLib/ExFatLib.h"
-#include "FatLib/FatLib.h"
+#include "SdFat/ExFatLib/ExFatLib.h"
+#include "SdFat/FatLib/FatLib.h"
 #include "FsNew.h"
 #include "FsVolume.h"
 /**

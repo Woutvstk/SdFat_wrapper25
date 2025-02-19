@@ -49,7 +49,7 @@ class PrintFile : public print_t, public BaseFile {
 #if defined(ARDUINO_SAM_DUE) && !defined(ARDUINO_API_VERSION)
   void flush() { BaseFile::sync(); }
 #else
-  void flush() override { BaseFile::sync(); }
+  void flush() { BaseFile::sync(); }
 #endif
 
   /** Write a single byte.

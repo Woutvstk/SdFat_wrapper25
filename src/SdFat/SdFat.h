@@ -27,11 +27,13 @@
  * \file
  * \brief main SdFs include file.
  */
+
 #include "ExFatLib/ExFatLib.h"
 #include "FatLib/FatLib.h"
 #include "FsLib/FsLib.h"
 #include "SdCard/SdCard.h"
 #include "common/SysCall.h"
+
 #if INCLUDE_SDIOS
 #include "sdios.h"
 #endif  // INCLUDE_SDIOS
@@ -79,6 +81,7 @@ class SdBase : public Vol {
    * \return true for success or false for failure.
    */
   bool begin(SdSpiConfig spiConfig) {
+
     return cardBegin(spiConfig) && volumeBegin();
   }
   //---------------------------------------------------------------------------
@@ -101,6 +104,8 @@ class SdBase : public Vol {
    */
   bool cardBegin(SdSpiConfig spiConfig) {
     m_card = m_cardFactory.newCard(spiConfig);
+    Serial.print("After newCard == ");
+    Serial.println(m_card->errorCode());
     return m_card && !m_card->errorCode();
   }
   //----------------------------------------------------------------------------
@@ -160,6 +165,7 @@ class SdBase : public Vol {
     pr->println(msg);
     errorHalt(pr);
   }
+
   //----------------------------------------------------------------------------
   /** Format SD card
    *
@@ -504,4 +510,5 @@ class SdFile : public PrintFile<SdBaseFile> {
   }
   /**  Cancel the date/time callback function. */
   static void dateTimeCallbackCancel() { FsDateTime::clearCallback(); }
+
 };

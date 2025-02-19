@@ -1,3 +1,5 @@
+
+
 /**
  * Copyright (c) 2011-2024 Bill Greiman
  * This file is part of the SdFat library for SD memory cards.
@@ -128,7 +130,7 @@
 //------------------------------------------------------------------------------
 /**
  * Set USE_FAT_FILE_FLAG_CONTIGUOUS nonzero to optimize access to
- * contiguous files.  A small amount of flash is flash is used.
+ * contiguous files.  A small amount of flash is used.
  */
 #ifndef USE_FAT_FILE_FLAG_CONTIGUOUS
 #define USE_FAT_FILE_FLAG_CONTIGUOUS 1
@@ -142,6 +144,7 @@
  *
  * Enabling dedicated SPI will cost extra flash and RAM.
  */
+
 #ifndef ENABLE_DEDICATED_SPI
 #if defined(__AVR__) && FLASHEND < 0X8000
 // 32K AVR boards.
@@ -152,6 +155,7 @@
 #endif  // defined(__AVR__) && FLASHEND < 0X8000
 #endif  // ENABLE_DEDICATED_SPI
 //------------------------------------------------------------------------------
+
 // Driver options
 /**
  * If the symbol SPI_DRIVER_SELECT is:

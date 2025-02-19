@@ -127,7 +127,11 @@ class SdSpiCard {
    * \return code for the last error. See SdCardInfo.h for a list of error
    * codes.
    */
-  uint8_t errorCode() const { return m_errorCode; }
+  uint8_t errorCode() const {
+    Serial.print("error is: ");
+    Serial.println(m_errorCode);
+     return m_errorCode; 
+    }
   /** \return error data for last error. */
   uint32_t errorData() const { return m_status; }
 /** \return false for shared class. */
