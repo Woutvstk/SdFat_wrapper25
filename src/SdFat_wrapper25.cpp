@@ -11,16 +11,17 @@ bool SdFatWrapper25::begin(uint8_t SdCsPin, SPIClass &spi, uint32_t frequency, c
   cout << "Entered 25 begin\n";
 
   if (!sd.begin(SdSpiConfig(SdCsPin, SHARED_SPI, frequency, &spi))) {
-  //if (!sd.begin(SdCsPin)) {
 
-    //Serial.println("SD init fail\n");
-    //Serial.println("CS pin is:  ");
-    //Serial.println(SdCsPin);
+    Serial.println("SD init fail\n");
+    Serial.println("CS pin is:  ");
+    Serial.println(SdCsPin);
     sd.initErrorHalt(&Serial);
+    return false;
   }
   else
   {
     cout << "SD init succes\n";
+    return true;
   }
 }
 

@@ -2,7 +2,6 @@
 #define _SDFAT_WRAPPER25_
 
 #define SPI_DRIVER_SELECT 1    // The standard library driver is always used.
-#define ENABLE_DEDICATED_SPI 0  // share the spi bus with others
 
 // reduce flash usage
 #define USE_LONG_FILE_NAMES 0
