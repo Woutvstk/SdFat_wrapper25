@@ -128,8 +128,6 @@ class SdSpiCard {
    * codes.
    */
   uint8_t errorCode() const {
-    Serial.print("error is: ");
-    Serial.println(m_errorCode);
      return m_errorCode; 
     }
   /** \return error data for last error. */

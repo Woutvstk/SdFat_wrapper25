@@ -104,8 +104,6 @@ class SdBase : public Vol {
    */
   bool cardBegin(SdSpiConfig spiConfig) {
     m_card = m_cardFactory.newCard(spiConfig);
-    Serial.print("After newCard == ");
-    Serial.println(m_card->errorCode());
     return m_card && !m_card->errorCode();
   }
   //----------------------------------------------------------------------------
