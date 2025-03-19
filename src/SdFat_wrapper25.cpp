@@ -5,7 +5,7 @@ ArduinoOutStream cout(Serial);
 
 // ########################### SdFat SD card filesystem functions ####################################
 
-bool SdFatWrapper25::begin(uint8_t SdCsPin, SPIClass &spi, uint32_t frequency, const char *mountpoint, uint8_t max_files, bool format_if_empty)
+bool SdFatWrapper25::begin(uint8_t SdCsPin, SPIClass &spi, uint32_t frequency)
 {
 
   if (!sd.begin(SdSpiConfig(SdCsPin, SHARED_SPI, frequency, &spi)))
@@ -39,6 +39,11 @@ uint64_t SdFatWrapper25::totalBytes()
 uint64_t SdFatWrapper25::usedBytes()
 {
   return (uint64_t)sd.sectorsPerCluster() * (sd.clusterCount() - sd.freeClusterCount()) * 512;
+}
+
+uint64_t SdFatWrapper25::freeBytes()
+{
+  return (uint64_t)sd.sectorsPerCluster() * sd.freeClusterCount() * 512;
 }
 
 /*

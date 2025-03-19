@@ -27,16 +27,23 @@ class SdFatWrapper25
 {
 
 public:
-        // initialise underlaying sd objects, SPI bus must already be initialised
-        bool begin(uint8_t ssPin = SS, SPIClass &spi = SPI, uint32_t frequency = 4000000,
-                   const char *mountpoint = "/sd", uint8_t max_files = 255, bool format_if_empty = false);
+        /// @brief Initialise underlaying sd objects, SPI bus must already be initialised
+        /// @param ssPin Chip select
+        /// @param spi SPIClass object to use for Sd Card
+        /// @param frequency SPI frequency to use
+        /// @return True for succes
+        bool begin(uint8_t ssPin = SS, SPIClass &spi = SPI, uint32_t frequency = 4000000);
 
-        // return total card size in bytes (from csd)
+        /// @return Total card size in bytes (from csd)
         uint64_t cardSize();
-        // return total amount of available bytes (from cluster count/sectors per cluster)
+        /// @return Total amount of available bytes (from cluster count/sectors per cluster)
         uint64_t totalBytes();
-        // Used bytes out of total bytes. (By counting free clusters)
+
+        /// @return Used bytes out of total bytes. (By counting free clusters)
         uint64_t usedBytes();
+
+        /// @return Free bytes out of total bytes. (By counting free clusters)
+        uint64_t freeBytes();
 
         /*
          *Maps SdFat library Sd card types to esp32 sd library card types
@@ -64,8 +71,7 @@ private:
         csd_t csd;
 };
 
-// this is the file wrapper class for the underlaying 'File'
-
+// This is the file wrapper class for the underlaying 'File'
 class SdFatFileWrapper25
 {
 public:
