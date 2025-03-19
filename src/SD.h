@@ -1,7 +1,9 @@
 #ifndef _SDFAT_WRAPPER25_
 #define _SDFAT_WRAPPER25_
 
-#define SPI_DRIVER_SELECT 1 // The standard library driver is always used.
+#define FILE_READ       "r"
+#define FILE_WRITE      "w"
+#define FILE_APPEND     "a"
 
 /*
 ** These settings can be added to the variant file of the board, for others, see SdFatConfig.h
@@ -18,6 +20,11 @@
 #include "SPI.h"
 #include <Arduino.h>
 #include "sd_defines.h"
+namespace SdFatWrapper25_ns
+{
+
+
+
 
 class SdFatWrapper25;
 class SdFatFileWrapper25;
@@ -57,7 +64,7 @@ public:
         /// @param mode "w", "r", "a". Write, read and append mode
         /// @param create true to create file if non existent
         /// @return SdFatFileWrapper25 file object
-        SdFatFileWrapper25 open(const String &path, const char *mode, const bool create);
+        SdFatFileWrapper25 open(const String &path, const char *mode, const bool create = false);
         /// @brief Prints last SdFat error
         void errorPrint();
         bool exists(const char *path);
@@ -67,7 +74,7 @@ public:
         bool rename(const char *pathFrom, const char *pathTo);
 
 private:
-        SdFat sd;
+SdFat_ns::SdFat sd;
         csd_t csd;
 };
 
@@ -115,13 +122,22 @@ public:
         /// @return For success return the next byte in the file as an int. If an error occurs or end of file is reached return -1.
         int read();
 
+        operator bool() const {
+                return true;
+                return file.isOpen();
+        }
+
+
 protected:
         bool init(const String &path, oflag_t oflag);
 
 private:
-        File file;
+        SdFat_ns::File file;
 
         friend class SdFatWrapper25;
 };
 
 #endif
+}
+
+extern SdFatWrapper25_ns::SdFatWrapper25 SD;

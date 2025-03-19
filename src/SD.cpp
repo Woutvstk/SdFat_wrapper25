@@ -2,7 +2,7 @@
 using namespace std;
 
 ArduinoOutStream cout(Serial);
-
+using namespace SdFatWrapper25_ns;
 // ########################### SdFat SD card filesystem functions ####################################
 
 bool SdFatWrapper25::begin(uint8_t SdCsPin, SPIClass &spi, uint32_t frequency)
@@ -15,7 +15,6 @@ bool SdFatWrapper25::begin(uint8_t SdCsPin, SPIClass &spi, uint32_t frequency)
   }
   else
   {
-    cout << "SD init succes\n";
 
     if (!sd.card()->readCSD(&csd))
     {
@@ -138,11 +137,6 @@ bool SdFatWrapper25::rename(const char *pathFrom, const char *pathTo)
   return sd.rename(pathFrom, pathTo);
 }
 
-size_t SdFatFileWrapper25::print(const char *content)
-{
-  return file.print(content);
-}
-
 void SdFatWrapper25::errorPrint()
 {
   // if (sd.sdErrorCode()) {
@@ -191,3 +185,15 @@ int SdFatFileWrapper25::available()
 {
   return file.available();
 }
+
+
+size_t SdFatFileWrapper25::print(const char *content)
+{
+  return file.print(content);
+}
+
+
+
+
+
+SdFatWrapper25 SD;

@@ -42,6 +42,8 @@
 #define SD_FAT_VERSION 20300
 /** SdFat version as string. */
 #define SD_FAT_VERSION_STR "2.3.0"
+namespace SdFat_ns
+{
 //==============================================================================
 /**
  * \class SdBase
@@ -510,3 +512,4 @@ class SdFile : public PrintFile<SdBaseFile> {
   static void dateTimeCallbackCancel() { FsDateTime::clearCallback(); }
 
 };
+}
