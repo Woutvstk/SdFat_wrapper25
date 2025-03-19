@@ -163,14 +163,8 @@ size_t SdFatFileWrapper25::write(const uint8_t *buf, size_t size)
     Serial.println("file is not open!");
   }
 
-  size_t tmpResult = file.write(buf, size);
-  file.sync();
+  return file.write(buf, size);
 
-  if (tmpResult != size)
-  {
-    Serial.println("Nr of bytes written does not match string length");
-  }
-  return tmpResult;
 }
 
 size_t SdFatFileWrapper25::read(uint8_t *buf, size_t size)
