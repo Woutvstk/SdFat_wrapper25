@@ -1,12 +1,9 @@
 #include "SdFat_wrapper25.h"
-
-#include <Arduino.h>
 using namespace std;
 
 ArduinoOutStream cout(Serial);
 
-
-//########################### SdFat SD card filesystem functions ####################################
+// ########################### SdFat SD card filesystem functions ####################################
 
 bool SdFatWrapper25::begin(uint8_t SdCsPin, SPIClass &spi, uint32_t frequency, const char *mountpoint, uint8_t max_files, bool format_if_empty)
 {
@@ -75,19 +72,19 @@ SdFatFileWrapper25 SdFatWrapper25::open(const String &path, const char *mode, co
 
   if (strcmp(mode, "r") == 0)
   {
-    Serial.println("File open mode is Read");
+    // Serial.println("File open mode is Read");
     oflag = oflag | O_RDONLY;
   }
   else if (strcmp(mode, "w") == 0)
   {
-    Serial.println("File open mode is Write");
-    oflag = oflag | O_TRUNC;  //FIXME, all files will be reset to length 0 when written
+    // Serial.println("File open mode is Write");
     oflag = oflag | O_WRONLY;
   }
   else if (strcmp(mode, "a") == 0)
   {
-    Serial.println("File open mode is Append");
+    // Serial.println("File open mode is Append");
     oflag = oflag | O_APPEND;
+    oflag = oflag | O_WRONLY;
   }
   else
   {
@@ -96,7 +93,7 @@ SdFatFileWrapper25 SdFatWrapper25::open(const String &path, const char *mode, co
 
   if (create)
   {
-    Serial.println("File wil be created if not non-existend");
+    // Serial.println("File wil be created if not non-existend");
     oflag = oflag | O_CREAT;
   }
 
@@ -110,12 +107,10 @@ SdFatFileWrapper25 SdFatWrapper25::open(const String &path, const char *mode, co
   return file25;
 }
 
-
 bool SdFatWrapper25::exists(const char *path)
 {
-return sd.exists(path);
+  return sd.exists(path);
 }
-
 
 bool SdFatWrapper25::mkdir(const char *path)
 {
@@ -125,7 +120,7 @@ bool SdFatWrapper25::mkdir(const char *path)
 bool SdFatWrapper25::remove(const char *path)
 {
 
-return sd.remove(path);
+  return sd.remove(path);
 }
 
 bool SdFatWrapper25::rmdir(const char *path)
@@ -133,12 +128,10 @@ bool SdFatWrapper25::rmdir(const char *path)
   return sd.rmdir(path);
 }
 
-
 bool SdFatWrapper25::rename(const char *pathFrom, const char *pathTo)
 {
-return sd.rename(pathFrom, pathTo);
+  return sd.rename(pathFrom, pathTo);
 }
-
 
 size_t SdFatFileWrapper25::print(const char *content)
 {
@@ -155,9 +148,8 @@ void SdFatWrapper25::errorPrint()
   //}
 }
 
-//########################### SdFat file object functions ####################################
-// init SdFat file object
-// return true if file is opened succesfully
+// ########################### SdFat file object functions ####################################
+
 bool SdFatFileWrapper25::init(const String &path, oflag_t oflag)
 {
 
@@ -183,15 +175,13 @@ size_t SdFatFileWrapper25::write(const uint8_t *buf, size_t size)
 
 size_t SdFatFileWrapper25::read(uint8_t *buf, size_t size)
 {
-  file.rewind();
   return file.read(buf, size);
 }
+
 int SdFatFileWrapper25::read()
 {
   return file.read();
 }
-
-
 
 bool SdFatFileWrapper25::close()
 {
